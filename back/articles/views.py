@@ -19,6 +19,7 @@ def create(request):
     serializer.save()
     return Response(serializer.data)
 
+
 @api_view(['GET'])
 def detail(request, article_pk):
   article = get_object_or_404(Article, pk=article_pk)

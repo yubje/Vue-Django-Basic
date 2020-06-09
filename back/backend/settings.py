@@ -28,10 +28,15 @@ INSTALLED_APPS = [
     # django rest framework
     'rest_framework',
 
+    # django-rest-auth
+    'rest_framework.authtoken',
+    'rest_auth',
+
     # apps
     'articles',
     'accounts',
 ]
+
 
 
 MIDDLEWARE = [
