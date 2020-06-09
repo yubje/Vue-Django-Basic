@@ -2,10 +2,12 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link>
-      <router-link :to="{ name: 'LoginView' }">Login</router-link>
+      <router-link v-if="!isLoggedin" :to="{ name: 'LoginView' }">Login</router-link>
 
     </div>
-    <router-view/>
+    <router-view
+      @submit-login-data="login"
+    />
   </div>
 </template>
 
@@ -18,7 +20,7 @@ export default {
   name: 'App',
   data() {
     return {
-      isLoggedin: false,
+      isLoggedin: false
     }
   },
   methods: {
@@ -27,10 +29,12 @@ export default {
       this.isLoggedin = true
     },
     login(loginData) {
-      axios.post(`${SERVER_URL}/rest-auth/login`, loginData)
-        .then(response => {
-          // console.log(response.data.key)
+      axios.post(`${SERVER_URL}/rest-auth/login/`, loginData)
+        .then(response =>{
+          console.log(response)
+          // 1. 토큰을 설정하기 위한 메서드 호출 (키 값 넘겨줌)
           this.setCookie(response.data.key)
+          // 2. 로그인이 끝나면 메인 페이지로 이동 
           this.$router.push('/')
         })
         .catch(error => console.log(error.response))
