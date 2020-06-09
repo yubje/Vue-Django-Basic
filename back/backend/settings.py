@@ -32,11 +32,26 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_auth',
 
+    # django-rest-auth - Registration
+    # (django-allauth)
+    'django.contrib.sites',
+    'rest_auth.registration',
+    'allauth',
+    'allauth.account',
+
     # apps
     'articles',
     'accounts',
 ]
 
+SITE_ID = 1
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 MIDDLEWARE = [
