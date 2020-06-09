@@ -10,6 +10,7 @@
         <label for="password">Password: </label>
         <input id="password" type="password" v-model="loginData.password"><br>
         <input type="submit">
+        
       </div>
     </form>
   </div>
