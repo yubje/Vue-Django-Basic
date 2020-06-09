@@ -2,10 +2,42 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link>
+      <router-link :to="{ name: 'LoginView' }">Login</router-link>
+
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+import axios from 'axios'
+
+const SERVER_URL = 'http://127.0.0.1:8080'
+
+export default {
+  name: 'App',
+  data() {
+    return {
+      isLoggedin: false,
+    }
+  },
+  methods: {
+    setCookie(key) {
+      this.$cookies.set('auth-token', key)
+      this.isLoggedin = true
+    },
+    login(loginData) {
+      axios.post(`${SERVER_URL}/rest-auth/login`, loginData)
+        .then(response => {
+          // console.log(response.data.key)
+          this.setCookie(response.data.key)
+          this.$router.push('/')
+        })
+        .catch(error => console.log(error.response))
+    },
+  },
+}
+</script>
 
 <style>
 #app {
